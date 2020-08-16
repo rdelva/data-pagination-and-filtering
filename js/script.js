@@ -19,6 +19,15 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 
+const showPage = ( data, 1 ) => {
+  const studentItem = document.querySelector(".student-item");
+  for(let i = 0; i < data.length; i++){
+    
+
+  }
+
+}
+
 
 
 /*
@@ -29,3 +38,4 @@ This function will create and insert/append the elements needed for the paginati
 
 
 // Call functions
+showPage(data, 1);
