@@ -45,18 +45,24 @@ const showPage = ( list, page ) => {
   let html ="";
   studentList.innerHTML = html;
 
-  for (let i = startIndex; i < endIndex; i++){
-    html += `<li class="student-item cf">
-                <div class="student-details">
-                  <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
-                  <h3>${list[i].name.first} ${list[i].name.last} </h3>
-                  <span class="email">${list[i].email}</span>
-                </div>
-                <div class="joined-details">
-                  <span class="date">Joined ${list[i].registered.date}</span>
-                </div>
-              </li>`;   
-  } // end of for loop
+  for(let i = 0; i < list.length; i++){
+    if(i >= startIndex && i < endIndex){
+      
+      html += `<li class="student-item cf">
+                  <div class="student-details">
+                    <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
+                    <h3>${list[i].name.first} ${list[i].name.last} </h3>
+                    <span class="email">${list[i].email}</span>
+                  </div>
+                  <div class="joined-details">
+                    <span class="date">Joined ${list[i].registered.date}</span>
+                  </div>
+                </li>`;   
+      }// end of for loop*
+
+  }
+
+
   studentList.insertAdjacentHTML('beforeend', html); 
 
 
