@@ -39,11 +39,13 @@ const showPage = ( list, page ) => {
  const itemsPerPage =  9;
  const startIndex = (page * itemsPerPage) - itemsPerPage;
  const endIndex = page * itemsPerPage;
+ console.log(startIndex);
+ console.log(endIndex);
  const studentList = document.querySelector(".student-list");
   let html ="";
   studentList.innerHTML = html;
 
-  for (let i = 0; i < endIndex; i++){
+  for (let i = startIndex; i < endIndex; i++){
     html += `<li class="student-item cf">
                 <div class="student-details">
                   <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
@@ -58,10 +60,6 @@ const showPage = ( list, page ) => {
   studentList.insertAdjacentHTML('beforeend', html); 
 
 
-  
- 
-  
-  
 };// end of showPage
 
 
@@ -71,24 +69,23 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-const addPagination = (data) => {
+const addPagination = (list) => {
 
   const itemsPerPage = 9;
-  const pages = Math.ceil(data.length/itemsPerPage);
+  let numOfPages =  Math.ceil(list.length/itemsPerPage);
 
-   const linkList= document.querySelector(".link-list");
+  const linkList = document.querySelector(".link-list");
+  linkList.innerHTML = "";
   
    
     let html = "";
-    for(let i=0; i < pages; i++){     
+    for(let i=0; i < numOfPages; i++){     
         html += `<li> 
                     <button type="button">${i+ 1}</button>
                 </li> `;      
-    }
-  
+    }  
 
    linkList.insertAdjacentHTML('beforeend', html);
-
 
    const buttons = document.querySelectorAll("button");
    buttons[0].classList.add('active');
