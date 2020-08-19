@@ -23,28 +23,30 @@ This function will create and insert/append the elements needed to display a "pa
 //A page parameter to represent the page number that will be passed as an argument when the function is called.
 
 const showPage = ( list, page ) => {
+  
   const itemsPerPage =  9;
   const startIndex = (page * itemsPerPage) - itemsPerPage;
   const endIndex = page * itemsPerPage;
- 
+  console.log(endIndex);
+  
   const studentList = document.querySelector(".student-list");
   let html ="";
-  for(let i = 0; i < data.length; i++){
+  for (let i = 0; i < endIndex; i++){
     html += `<li class="student-item cf">
         <div class="student-details">
-          <img class="avatar" src="${data[i].picture.large}" alt="Profile Picture">
-          <h3>${data[i].name.first} ${data[i].name.last} </h3>
-          <span class="email">${data[i].email}</span>
+          <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
+          <h3>${list[i].name.first} ${list[i].name.last} </h3>
+          <span class="email">${list[i].email}</span>
         </div>
         <div class="joined-details">
-          <span class="date">Joined ${data[i].registered.date}</span>
+          <span class="date">Joined ${list[i].registered.date}</span>
         </div>
   </li>`;
    
   }
- // console.log(html);
+  
   studentList.insertAdjacentHTML('beforeend', html); 
-  addPagination(startIndex, endIndex);
+  //addPagination(startIndex, endIndex);
 
 };// end of showPage
 
@@ -55,15 +57,40 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-const addPagination = (start, end) => {
-    
-    for(let i=0; i <= end; i++){
-      console.log(i);
+ /*const addPagination = (start, end) => {
+   const linkList= document.querySelector(".link-list");
 
+    let html = "";
+    for(let i=0; i < end; i++){
+      
+        html += `<li> 
+                    <button type="button" class="active">${i+ 1}</button>
+                </li> `;
+      
     }
-};
+
+   linkList.insertAdjacentHTML('beforeend', html);
+
+   const buttons = document.querySelectorAll("button");
+
+   //Loop to add the code to all the buttons 
+
+   for(let i = 0; i < buttons.length; i++){
+    buttons[i].addEventListener( 'click', (e) => {
+      e.preventDefault();
+      showPage(data, i);
+
+     }); 
+
+   }
 
 
 
+
+}; //end of addPagination
+
+
+*/
 // Call functions
 showPage(data, 1);
+//addPagination();
