@@ -46,7 +46,7 @@ const showPage = ( list, page ) => {
   }
   
   studentList.insertAdjacentHTML('beforeend', html); 
-  //addPagination(startIndex, endIndex);
+
 
 };// end of showPage
 
@@ -57,40 +57,56 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
- /*const addPagination = (start, end) => {
+const addPagination = (data) => {
+
+  const itemsPerPage = 9;
+  const pages = data.length/itemsPerPage
+
    const linkList= document.querySelector(".link-list");
 
     let html = "";
-    for(let i=0; i < end; i++){
-      
+    for(let i=0; i < pages; i++){     
         html += `<li> 
-                    <button type="button" class="active">${i+ 1}</button>
-                </li> `;
-      
+                    <button type="button">${i+ 1}</button>
+                </li> `;      
     }
+  
 
    linkList.insertAdjacentHTML('beforeend', html);
 
+
    const buttons = document.querySelectorAll("button");
+   buttons[0].classList.add('active');
 
-   //Loop to add the code to all the buttons 
-
-   for(let i = 0; i < buttons.length; i++){
-    buttons[i].addEventListener( 'click', (e) => {
-      e.preventDefault();
-      showPage(data, i);
-
-     }); 
-
-   }
+  // create an event listener on the `link-list` element
+    // if the click target is a button:
+      // add the active class to the clicked button
+      // call the showPage function passing the `list` parameter and page to display as arguments
 
 
+    //Rewrite the event listener. use event/bubble delegation
 
+    linkList.addEventListener('click', (e)=>{
+      if(e.target.tagName == 'BUTTON'){
+        e.preventDefault();
+        console.log("Hi");
 
+        // remove the "active" class from the previous button
+        for(let i = 0; i < buttons.length; i++) {                  
+          if(buttons[i].classList.contains("active")){
+              buttons[i].removeAttribute("class");
+          }    
+        }      
+        e.target.classList.add("active");
+        const page  = e.target.innerHTML;
+        showPage(data, page);
+      }// end of event delegation     
+    }); // end of linkList Event Listener
+  
 }; //end of addPagination
 
 
-*/
+
 // Call functions
 showPage(data, 1);
-//addPagination();
+addPagination(data);
