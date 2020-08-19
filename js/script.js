@@ -24,30 +24,44 @@ This function will create and insert/append the elements needed to display a "pa
 
 const showPage = ( list, page ) => {
   
-  const itemsPerPage =  9;
-  const startIndex = (page * itemsPerPage) - itemsPerPage;
-  const endIndex = page * itemsPerPage;
-  console.log(endIndex);
-  
-  const studentList = document.querySelector(".student-list");
+   // create two variables which will represent the index for the first and last student on the page
+
+  // select the element with a class of `student-list` and assign it to a variable
+
+  // set the innerHTML property of the variable you just created to an empty string
+
+  // loop over the length of the `list` parameter
+    // inside the loop create a conditional to display the proper students
+      // inside the conditional:
+        // create the elements needed to display the student information
+        // insert the above elements
+
+ const itemsPerPage =  9;
+ const startIndex = (page * itemsPerPage) - itemsPerPage;
+ const endIndex = page * itemsPerPage;
+ const studentList = document.querySelector(".student-list");
   let html ="";
+  studentList.innerHTML = html;
+
   for (let i = 0; i < endIndex; i++){
     html += `<li class="student-item cf">
-        <div class="student-details">
-          <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
-          <h3>${list[i].name.first} ${list[i].name.last} </h3>
-          <span class="email">${list[i].email}</span>
-        </div>
-        <div class="joined-details">
-          <span class="date">Joined ${list[i].registered.date}</span>
-        </div>
-  </li>`;
-   
-  }
-  
+                <div class="student-details">
+                  <img class="avatar" src="${list[i].picture.large}" alt="Profile Picture">
+                  <h3>${list[i].name.first} ${list[i].name.last} </h3>
+                  <span class="email">${list[i].email}</span>
+                </div>
+                <div class="joined-details">
+                  <span class="date">Joined ${list[i].registered.date}</span>
+                </div>
+              </li>`;   
+  } // end of for loop
   studentList.insertAdjacentHTML('beforeend', html); 
 
 
+  
+ 
+  
+  
 };// end of showPage
 
 
@@ -60,10 +74,11 @@ This function will create and insert/append the elements needed for the paginati
 const addPagination = (data) => {
 
   const itemsPerPage = 9;
-  const pages = data.length/itemsPerPage
+  const pages = Math.ceil(data.length/itemsPerPage);
 
    const linkList= document.querySelector(".link-list");
-
+  
+   
     let html = "";
     for(let i=0; i < pages; i++){     
         html += `<li> 
@@ -89,7 +104,7 @@ const addPagination = (data) => {
     linkList.addEventListener('click', (e)=>{
       if(e.target.tagName == 'BUTTON'){
         e.preventDefault();
-        console.log("Hi");
+
 
         // remove the "active" class from the previous button
         for(let i = 0; i < buttons.length; i++) {                  
@@ -99,6 +114,7 @@ const addPagination = (data) => {
         }      
         e.target.classList.add("active");
         const page  = e.target.innerHTML;
+     
         showPage(data, page);
       }// end of event delegation     
     }); // end of linkList Event Listener
