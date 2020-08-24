@@ -124,12 +124,12 @@ const addPagination = (list) => {
 }; //end of addPagination
 
 const searchBar = () => {
-  const header = document.querySelector('header');
-  
-  const h2 = header.querySelector('h2');
+  const header = document.querySelector('header'); 
   const label = document.createElement('label');
-  label.for = "search"; 
-  label.classList.add = 'student-search';
+  const att = document.createAttribute("for"); 
+  att.value = 'search';
+  label.setAttributeNode(att);
+  label.classList.add('student-search');
   label.innerHTML = `
         <input id="search" placeholder="Search by name...">
         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
@@ -137,71 +137,77 @@ const searchBar = () => {
   header.appendChild(label);
   const searchBar = document.querySelector('#search');
   const searchButton = document.querySelector('[type="button"]');
-  let eventClicked ='false';
-  let eventKeyed ='false';
-
-
+  
  searchButton.addEventListener('click', (e) =>{
     const name = search.value.toLowerCase();  
-    filterList(name, data);
-    eventClicked = true;
-    
+    filterList(name, data);    
   });
   
-  console.log(eventClicked);
-  searchBar.addEventListener('keyup', (e) => {
+  searchBar.addEventListener('keyup',  (e) => {
     const name = search.value.toLocaleLowerCase();
-    filterList(name, data);
-    eventKeyed = true;
+    filterList(name, data);    
   });
 
+    
 
-}// end of searchBar()
+};// end of searchBar()
 
 
 
 const filterList  = (name, list) => {
-
-
-
-  console.log(name);
-  console.log(list.length);
+  const header = document.querySelector('header');
+  //const linkList= document.querySelector('link-list');
+  const noResult = document.querySelector('.no-results');
+  
   const itemFound = [];
   let word = '';
-  let counter=0;
+  let counter = 0;
+
+   
   for(let i = 0; i < list.length; i++){
     word = `${list[i].name.first} ${list[i].name.last}`.toLocaleLowerCase();
-    //console.log(word);
+    
     if(word.includes(name)){
       itemFound.push(list[i]);
     } else {
       counter++;
-    }
+    } 
+  } // end of for loop 
 
-    if (counter == list.length){
-      const header = document.querySelector('header');
-      const div =  document.createElement('div');
-      div.textContent = "No results found"
-      div.classList.add("no-class");
-      header.appendChild(div);
-    }
+
+  if (counter == list.length){
+    noResult.style.display = 'block';
+  } else {
+    noResult.style.display = 'hide';
+
   }
- /* //Test to see if items found is pushed into the list
-  for(let i =0; i < itemFound.length; i++){
-    console.log(itemFound[i]);
-  }*/
+
 
   //send found list to showPage
 
   showPage(itemFound, 1);
   addPagination(itemFound);
 
-}// filterList
 
+};// filterList
+
+function noResultDisplay() {
+  // if there are no results. The text should appear and reappear    
+  const page = document.querySelector('.page');
+  const linkList= document.querySelector('link-list');
+  const div = document.createElement('div'); 
+  div.classList.add('no-results');   
+  div.innerHTML = 'No results found';
+  page.insertBefore(div, linkList);
+  const noResult = document.querySelector('.no-results');
+  noResult.style.display = 'none';
+
+}
 
 // Call functions
 showPage(data, 1);
 addPagination(data);
 searchBar();
+noResultDisplay();
 
 
