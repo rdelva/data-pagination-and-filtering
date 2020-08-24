@@ -99,8 +99,6 @@ const addPagination = (list) => {
     // if the click target is a button:
       // add the active class to the clicked button
       // call the showPage function passing the `list` parameter and page to display as arguments
-
-
     //Rewrite the event listener. use event/bubble delegation
 
     linkList.addEventListener('click', (e)=>{
@@ -117,7 +115,7 @@ const addPagination = (list) => {
         e.target.classList.add("active");
         const page  = e.target.innerHTML;
      
-        showPage(data, page);
+        showPage(list, page);
       }// end of event delegation     
     }); // end of linkList Event Listener
   
@@ -137,6 +135,7 @@ const searchBar = () => {
   header.appendChild(label);
   const searchBar = document.querySelector('#search');
   const searchButton = document.querySelector('[type="button"]');
+  
   
  searchButton.addEventListener('click', (e) =>{
     const name = search.value.toLowerCase();  
@@ -170,15 +169,15 @@ const filterList  = (name, list) => {
     if(word.includes(name)){
       itemFound.push(list[i]);
     } else {
-      counter++;
+      counter++; //Counts the items that was not pushed in the array 
     } 
   } // end of for loop 
 
-
+  //If counter is equal to the length of the list. It means no results were found and the message would be displayed
   if (counter == list.length){
     noResult.style.display = 'block';
   } else {
-    noResult.style.display = 'hide';
+    noResult.style.display = 'none';
 
   }
 
